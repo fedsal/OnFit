@@ -1,5 +1,8 @@
-package com.dev.onfit.domain
+package org.dev.onfit.domain
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class User(
     val name: String,
     val email: String,

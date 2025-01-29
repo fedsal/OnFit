@@ -1,4 +1,4 @@
-package com.dev.onfit.domain
+package org.dev.onfit.domain
 
 data class Coordinates(
     val latitude: Double,
