@@ -1,4 +1,4 @@
-package org.dev.onfit.data
+package org.dev.onfit.data.auth
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -7,13 +7,17 @@ import io.ktor.http.*
 import org.dev.onfit.domain.login.LoginRequest
 import org.dev.onfit.domain.login.LoginResponse
 
-class AuthService(private val client: HttpClient) {
+class AuthRemoteDataSource(private val client: HttpClient): AuthDataSource {
 
-    suspend fun login(username: String, password: String): LoginResponse {
+    override suspend fun login(username: String, password: String): LoginResponse {
         return client.post("/login") {
             contentType(ContentType.Application.Json)
             setBody(LoginRequest(username, password))
         }.body()
+    }
+
+    override suspend fun saveToken(token: String) {
+        TODO("Not yet implemented")
     }
 
     companion object {
