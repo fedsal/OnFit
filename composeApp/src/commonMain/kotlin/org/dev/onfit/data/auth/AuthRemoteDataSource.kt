@@ -19,8 +19,4 @@ class AuthRemoteDataSource(private val client: HttpClient): AuthDataSource {
     override suspend fun saveToken(token: String) {
         TODO("Not yet implemented")
     }
-
-    companion object {
-        const val BASE_URL = "http://localhost:8080"
-    }
 }

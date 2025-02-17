@@ -11,16 +11,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +44,11 @@ import org.koin.compose.viewmodel.koinViewModel
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel()
 ) {
+    val uiState = viewModel.uiState.collectAsState()
+    if (uiState.value.loggedIn) {
+        // Navigate to the next screen
+        return
+    }
     Surface {
         Column(
             modifier = Modifier.fillMaxSize().padding(vertical = 32.dp, horizontal = 20.dp),
@@ -53,10 +63,11 @@ fun LoginScreen(
             )
             Spacer(Modifier.height(32.dp))
             // Email field
+            var email by remember { mutableStateOf("") }
             CustomTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = email,
+                onValueChange = { email = it },
                 placeholder = "Ingrese su email",
                 trailingIcon = {
                     Icon(
@@ -68,10 +79,11 @@ fun LoginScreen(
             )
             Spacer(Modifier.height(16.dp))
             // Password field
+            var password by remember { mutableStateOf("") }
             CustomTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = password,
+                onValueChange = { password = it },
                 isPassword = true,
                 placeholder = "Ingrese su contraseña",
                 trailingIcon = {
@@ -92,15 +104,21 @@ fun LoginScreen(
             // Login button
             Spacer(Modifier.height(16.dp))
             Button(
-                onClick = {},
+                onClick = {
+                    viewModel.login(email, password)
+                },
                 modifier = Modifier.fillMaxWidth().height(50.dp),
                 shape = RoundedCornerShape(16.dp),
-                enabled = true,
-                colors = ButtonDefaults.buttonColors(
-
-                )
+                enabled = uiState.value.isLoading.not(),
             ) {
-                Text("Ingresar", color = Color.White)
+                if (uiState.value.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.width(24.dp).height(24.dp),
+                        color = Color.White
+                    )
+                } else {
+                    Text("Ingresar", color = Color.White)
+                }
             }
             // Forgot password
             Spacer(Modifier.height(24.dp))
