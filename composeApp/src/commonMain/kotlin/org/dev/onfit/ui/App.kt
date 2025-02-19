@@ -9,21 +9,16 @@ import org.dev.onfit.ui.login.LoginScreen
 import org.dev.onfit.ui.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
-import org.koin.compose.KoinContext
+import org.koin.core.module.Module
 
 @Composable
 @Preview
-fun App() {
-    KoinApplication(
-        application = {
-            modules(
-                viewmodelModule,
-                repositoryModule,
-                dataSourceModule,
-                networkModule
-            )
-        }
-    ) {
+fun App(
+    platformModules: List<Module> = emptyList()
+) {
+    fun applicationModules() =
+        listOf(viewmodelModule, repositoryModule, dataSourceModule, networkModule)
+    KoinApplication(application = { modules(applicationModules() + platformModules) }) {
         AppTheme {
             LoginScreen()
         }

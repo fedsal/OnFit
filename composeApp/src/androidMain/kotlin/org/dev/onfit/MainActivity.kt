@@ -5,15 +5,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import org.dev.onfit.common.createDataStore
 import org.dev.onfit.ui.App
+import org.koin.dsl.module
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App()
+            App(listOf(dataStoreModule))
         }
+    }
+
+    private val dataStoreModule = module {
+        single { createDataStore(applicationContext) }
     }
 }
 
