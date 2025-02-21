@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -73,7 +74,7 @@ fun LoginScreen(
                 trailingIcon = {
                     Icon(
                         imageVector = Icons.Outlined.Email,
-                        tint = Color.Red,
+                        tint = MaterialTheme.colorScheme.primary,
                         contentDescription = null
                     )
                 }
