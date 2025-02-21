@@ -45,8 +45,9 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
+    var rememberUser = remember { mutableStateOf(false) }
     if (uiState.value.loggedIn) {
-        // Navigate to the next screen
+        // TODO: Navigate to the next screen
         return
     }
     Surface {
@@ -99,13 +100,13 @@ fun LoginScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Recuérdame", Modifier.weight(1f), fontSize = 18.sp)
                 Spacer(Modifier.width(8.dp))
-                Switch(checked = false, onCheckedChange = {})
+                Switch(checked = rememberUser.value, onCheckedChange = { rememberUser.value = it })
             }
             // Login button
             Spacer(Modifier.height(16.dp))
             Button(
                 onClick = {
-                    viewModel.login(email, password)
+                    viewModel.login(email, password, rememberUser.value)
                 },
                 modifier = Modifier.fillMaxWidth().height(50.dp),
                 shape = RoundedCornerShape(16.dp),

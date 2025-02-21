@@ -1,4 +1,4 @@
-package org.dev.onfit.di
+package org.dev.onfit.framework.di
 
 import org.dev.onfit.ui.login.LoginViewModel
 import org.koin.core.module.dsl.viewModelOf

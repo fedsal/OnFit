@@ -1,10 +1,10 @@
 package org.dev.onfit.ui
 
 import androidx.compose.runtime.Composable
-import org.dev.onfit.di.dataSourceModule
-import org.dev.onfit.di.networkModule
-import org.dev.onfit.di.repositoryModule
-import org.dev.onfit.di.viewmodelModule
+import org.dev.onfit.framework.di.dataSourceModule
+import org.dev.onfit.framework.di.networkModule
+import org.dev.onfit.framework.di.repositoryModule
+import org.dev.onfit.framework.di.viewmodelModule
 import org.dev.onfit.ui.login.LoginScreen
 import org.dev.onfit.ui.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
