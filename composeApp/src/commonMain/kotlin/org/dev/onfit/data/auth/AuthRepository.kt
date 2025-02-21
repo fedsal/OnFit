@@ -10,7 +10,11 @@ class AuthRepository(
         return remoteDataSource.login(username, password)
     }
 
-    suspend fun saveToken(token: String) {
+    suspend fun saveRefreshToken(token: String) {
         localDataSource.saveRefreshToken(token)
+    }
+
+    suspend fun saveAccessToken(token: String) {
+        localDataSource.saveAccessToken(token)
     }
 }
