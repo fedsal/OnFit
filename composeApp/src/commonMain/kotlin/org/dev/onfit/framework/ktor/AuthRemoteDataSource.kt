@@ -11,9 +11,12 @@ import org.dev.onfit.domain.login.LoginResponse
 class AuthRemoteDataSource(private val client: HttpClient): RemoteAuthDataSource {
 
     override suspend fun login(username: String, password: String): LoginResponse {
-        return client.post("/login") {
+        val response = client.post("/login") {
             contentType(ContentType.Application.Json)
             setBody(LoginRequest(username, password))
-        }.body()
+        }
+        if (!response.status.isSuccess())
+            throw Exception("Error al iniciar sesión")
+        return response.body()
     }
 }
