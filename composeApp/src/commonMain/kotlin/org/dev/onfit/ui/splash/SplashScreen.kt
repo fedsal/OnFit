@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Text
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -27,20 +27,18 @@ fun SplashScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     if (uiState.value.goToHome) {
-        // Navigate to the home screen
-        Text("Home")
-        //return
+        navController.navigate(Destination.Home)
     } else if (uiState.value.goToLogin) {
-        // Navigate to the login screen
         navController.navigate(Destination.Login)
-        return
     }
 
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Image(
-            modifier = Modifier.width(220.dp).height(100.dp),
-            painter = painterResource(Res.drawable.logo),
-            contentDescription = null
-        )
+    Surface {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Image(
+                modifier = Modifier.width(220.dp).height(100.dp),
+                painter = painterResource(Res.drawable.logo),
+                contentDescription = null
+            )
+        }
     }
 }
