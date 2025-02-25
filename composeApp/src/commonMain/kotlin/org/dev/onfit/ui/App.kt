@@ -5,7 +5,7 @@ import org.dev.onfit.framework.di.dataSourceModule
 import org.dev.onfit.framework.di.networkModule
 import org.dev.onfit.framework.di.repositoryModule
 import org.dev.onfit.framework.di.viewmodelModule
-import org.dev.onfit.ui.login.LoginScreen
+import org.dev.onfit.ui.splash.SplashScreen
 import org.dev.onfit.ui.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
@@ -20,7 +20,7 @@ fun App(
         listOf(viewmodelModule, repositoryModule, dataSourceModule, networkModule)
     KoinApplication(application = { modules(applicationModules() + platformModules) }) {
         AppTheme {
-            LoginScreen()
+            SplashScreen()
         }
     }
 }

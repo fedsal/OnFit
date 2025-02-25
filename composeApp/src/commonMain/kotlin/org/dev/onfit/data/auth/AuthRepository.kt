@@ -17,4 +17,8 @@ class AuthRepository(
     suspend fun saveAccessToken(token: String) {
         localDataSource.saveAccessToken(token)
     }
+
+    suspend fun getAccessToken() = localDataSource.getAccessToken()
+
+    suspend fun getRefreshToken() = localDataSource.getRefreshToken()
 }

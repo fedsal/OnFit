@@ -11,7 +11,7 @@ val networkModule = module {
     single {
         HttpClient {
             defaultRequest {
-                url("https://api.onfit.dev/v1/")
+                url("http://10.0.2.2:3001/")
             }
             install(ContentNegotiation) {
                 json(Json {
