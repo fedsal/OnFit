@@ -38,20 +38,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import onfit.composeapp.generated.resources.Res
 import onfit.composeapp.generated.resources.logo
+import org.dev.onfit.ui.Destination
 import org.dev.onfit.ui.common.composables.CustomTextField
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel()
+    viewModel: LoginViewModel = koinViewModel(),
+    navController: NavHostController = koinInject()
 ) {
     val uiState = viewModel.uiState.collectAsState()
     if (uiState.value.loggedIn) {
-        // TODO: Navigate to the next screen
-        Text("Logged in!")
+        navController.navigate(Destination.Home)
         return
     }
     val focusRequester = remember { FocusRequester() }

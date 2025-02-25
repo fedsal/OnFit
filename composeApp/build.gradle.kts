@@ -56,6 +56,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.datastore)
             implementation(libs.datastore.preferences)
+            implementation(libs.navigation.compose)
             // Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.serialization)
