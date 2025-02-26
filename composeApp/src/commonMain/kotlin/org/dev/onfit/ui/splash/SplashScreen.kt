@@ -14,7 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import onfit.composeapp.generated.resources.Res
 import onfit.composeapp.generated.resources.logo
-import org.dev.onfit.ui.Destination
+import org.dev.onfit.ui.navigation.AuthDestination
+import org.dev.onfit.ui.navigation.Home
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
@@ -27,9 +28,9 @@ fun SplashScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     if (uiState.value.goToHome) {
-        navController.navigate(Destination.Home)
+        navController.navigate(Home)
     } else if (uiState.value.goToLogin) {
-        navController.navigate(Destination.Login)
+        navController.navigate(AuthDestination.Login)
     }
 
     Surface {
