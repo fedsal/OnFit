@@ -3,7 +3,7 @@ package org.dev.onfit.ui.home
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
@@ -39,7 +39,7 @@ fun BottomNavigation(
         ) {
             Column {
                 Spacer(Modifier.size(20.dp))
-                NavigationBar {
+                NavigationBar(Modifier.offset(y = (-5).dp)) {
                     menuItems.forEach { item ->
                         NavigationBarItem(
                             selected = navBackStackEntry.hasRoute(item.route),

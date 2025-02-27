@@ -12,11 +12,13 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.dev.onfit.framework.di.dataSourceModule
 import org.dev.onfit.framework.di.networkModule
@@ -57,7 +59,8 @@ fun MainScreen(navController: NavHostController) {
         bottomBar = {
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 BottomNavigation(navController)
-                if (navController.currentBackStackEntry.hasRoute(HomeDestination.Home))
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                if (navBackStackEntry.hasRoute(HomeDestination.Home))
                 FloatingActionButton(
                     modifier = Modifier.size(70.dp).offset(y = (-30).dp),
                     onClick = {},
