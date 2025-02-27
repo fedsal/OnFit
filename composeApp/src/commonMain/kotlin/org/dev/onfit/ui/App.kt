@@ -23,7 +23,9 @@ import org.dev.onfit.framework.di.networkModule
 import org.dev.onfit.framework.di.repositoryModule
 import org.dev.onfit.framework.di.viewmodelModule
 import org.dev.onfit.ui.home.BottomNavigation
+import org.dev.onfit.ui.navigation.HomeDestination
 import org.dev.onfit.ui.navigation.OnFitNavigation
+import org.dev.onfit.ui.navigation.hasRoute
 import org.dev.onfit.ui.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
@@ -55,6 +57,7 @@ fun MainScreen(navController: NavHostController) {
         bottomBar = {
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 BottomNavigation(navController)
+                if (navController.currentBackStackEntry.hasRoute(HomeDestination.Home))
                 FloatingActionButton(
                     modifier = Modifier.size(70.dp).offset(y = (-30).dp),
                     onClick = {},

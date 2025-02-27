@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -39,7 +40,7 @@ private val lightScheme = lightColorScheme(
     surfaceBright = surfaceBrightLight,
     surfaceContainerLowest = surfaceContainerLowestLight,
     surfaceContainerLow = surfaceContainerLowLight,
-    surfaceContainer = surfaceContainerLight,
+    surfaceContainer = Color.White,
     surfaceContainerHigh = surfaceContainerHighLight,
     surfaceContainerHighest = surfaceContainerHighestLight,
 )
@@ -88,7 +89,7 @@ fun AppTheme(
     content: @Composable () -> Unit
 ) {
   val colorScheme = when {
-      darkTheme -> darkScheme
+      darkTheme -> lightScheme
       else -> lightScheme
   }
 
