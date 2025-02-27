@@ -1,7 +1,21 @@
 package org.dev.onfit.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.QrCode
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.dev.onfit.framework.di.dataSourceModule
@@ -25,15 +39,38 @@ fun App(
     val navigationModule = module {
         single<NavHostController> { navController }
     }
+
     fun applicationModules() =
         listOf(viewmodelModule, repositoryModule, dataSourceModule, networkModule, navigationModule)
     KoinApplication(application = { modules(applicationModules() + platformModules) }) {
         AppTheme {
-            Scaffold(
-                bottomBar = { BottomNavigation(navController) }
-            ) {
-                OnFitNavigation(navController)
+            MainScreen(navController)
+        }
+    }
+}
+
+@Composable
+fun MainScreen(navController: NavHostController) {
+    Scaffold(
+        bottomBar = {
+            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                BottomNavigation(navController)
+                FloatingActionButton(
+                    modifier = Modifier.size(70.dp).offset(y = (-30).dp),
+                    onClick = {},
+                    shape = CircleShape,
+                    elevation = FloatingActionButtonDefaults.elevation(0.dp)
+                ) {
+                    Icon(
+                        modifier = Modifier.size(30.dp),
+                        imageVector = Icons.Rounded.QrCode,
+                        tint = Color.Black,
+                        contentDescription = ""
+                    )
+                }
             }
         }
+    ) {
+        OnFitNavigation(navController)
     }
 }
