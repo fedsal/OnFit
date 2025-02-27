@@ -26,8 +26,9 @@ fun BottomNavigation(
     val showBottomBar = navBackStackEntry.hasRoute(HomeDestination.Home)
     if (showBottomBar) {
         BottomAppBar(
-            modifier = Modifier.clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                .height(80.dp),
+            modifier = Modifier
+                .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
+                .height(80.dp)
         ) {
             NavigationBar {
                 menuItems.forEach { item ->
