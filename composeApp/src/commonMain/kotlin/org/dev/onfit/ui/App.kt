@@ -1,5 +1,6 @@
 package org.dev.onfit.ui
 
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -7,6 +8,7 @@ import org.dev.onfit.framework.di.dataSourceModule
 import org.dev.onfit.framework.di.networkModule
 import org.dev.onfit.framework.di.repositoryModule
 import org.dev.onfit.framework.di.viewmodelModule
+import org.dev.onfit.ui.home.BottomNavigation
 import org.dev.onfit.ui.navigation.OnFitNavigation
 import org.dev.onfit.ui.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -27,7 +29,11 @@ fun App(
         listOf(viewmodelModule, repositoryModule, dataSourceModule, networkModule, navigationModule)
     KoinApplication(application = { modules(applicationModules() + platformModules) }) {
         AppTheme {
-            OnFitNavigation(navController)
+            Scaffold(
+                bottomBar = { BottomNavigation(navController) }
+            ) {
+                OnFitNavigation(navController)
+            }
         }
     }
 }

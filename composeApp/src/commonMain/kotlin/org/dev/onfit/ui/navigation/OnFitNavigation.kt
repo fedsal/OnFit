@@ -13,9 +13,12 @@ import org.dev.onfit.ui.splash.SplashScreen
 fun OnFitNavigation(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = Home) {
+    NavHost(navController = navController, startDestination = Splash) {
         composable<Splash> { SplashScreen() }
-        composable<Home> { Text("Home") }
+        navigation<HomeDestination.Home>(startDestination = HomeDestination.Profile) {
+            composable<HomeDestination.Profile> { Text("Profile") }
+            composable<HomeDestination.Shop> { Text("Shop") }
+        }
         navigation<AuthDestination.Auth>(startDestination = AuthDestination.Login) {
             composable<AuthDestination.Login> { LoginScreen() }
             composable<AuthDestination.Register> { Text("Register") }

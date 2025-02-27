@@ -18,5 +18,11 @@ sealed class AuthDestination {
 data object Splash
 
 // Route for home
-@Serializable
-data object Home
+sealed class HomeDestination {
+    @Serializable
+    data object Home : HomeDestination()
+    @Serializable
+    data object Profile : HomeDestination()
+    @Serializable
+    data object Shop : HomeDestination()
+}
