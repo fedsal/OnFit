@@ -54,7 +54,7 @@ fun LoginScreen(
 ) {
     val uiState = viewModel.uiState.collectAsState()
     if (uiState.value.loggedIn) {
-        navController.navigate(HomeDestination.Home)
+        navController.navigate(HomeDestination.HomeGraph)
         return
     }
     val focusRequester = remember { FocusRequester() }

@@ -64,14 +64,14 @@ fun MainScreen(navController: NavHostController) {
     Scaffold(
         modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
         topBar = {
-            if (navBackStackEntry.hasRoute(HomeDestination.Home)) {
+            if (navBackStackEntry.hasRoute(HomeDestination.HomeGraph)) {
                 OnFitTopBar()
             }
         },
         bottomBar = {
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 BottomNavigation(navController)
-                if (navBackStackEntry.hasRoute(HomeDestination.Home))
+                if (navBackStackEntry.hasRoute(HomeDestination.HomeGraph))
                 FloatingActionButton(
                     modifier = Modifier.size(70.dp).offset(y = (-30).dp),
                     onClick = {},

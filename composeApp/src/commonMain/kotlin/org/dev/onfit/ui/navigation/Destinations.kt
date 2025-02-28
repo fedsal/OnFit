@@ -20,9 +20,9 @@ data object Splash
 // Route for home
 sealed class HomeDestination {
     @Serializable
-    data object Home : HomeDestination()
+    data object HomeGraph : HomeDestination()
     @Serializable
-    data object Profile : HomeDestination()
+    data object Home : HomeDestination()
     @Serializable
     data object Shop : HomeDestination()
 }

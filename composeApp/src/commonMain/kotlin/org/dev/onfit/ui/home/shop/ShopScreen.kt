@@ -1,4 +1,4 @@
-package org.dev.onfit.ui.navigation.shop
+package org.dev.onfit.ui.home.shop
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

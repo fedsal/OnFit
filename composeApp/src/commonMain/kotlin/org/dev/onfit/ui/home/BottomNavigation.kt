@@ -25,9 +25,9 @@ import org.dev.onfit.ui.navigation.hasRoute
 fun BottomNavigation(
     navHostController: NavHostController
 ) {
-    val menuItems = listOf(ItemsBottomNav.Shop, ItemsBottomNav.Profile)
+    val menuItems = listOf(ItemsBottomNav.Profile, ItemsBottomNav.Shop)
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()
-    val showBottomBar = navBackStackEntry.hasRoute(HomeDestination.Home)
+    val showBottomBar = navBackStackEntry.hasRoute(HomeDestination.HomeGraph)
     if (showBottomBar) {
         BottomAppBar(
             modifier = Modifier.graphicsLayer {

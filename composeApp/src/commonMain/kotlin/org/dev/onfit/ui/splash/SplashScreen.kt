@@ -28,7 +28,7 @@ fun SplashScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     if (uiState.value.goToHome) {
-        navController.navigate(HomeDestination.Home)
+        navController.navigate(HomeDestination.HomeGraph)
     } else if (uiState.value.goToLogin) {
         navController.navigate(AuthDestination.Login)
     }
