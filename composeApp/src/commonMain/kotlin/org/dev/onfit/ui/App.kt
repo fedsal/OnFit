@@ -25,6 +25,7 @@ import org.dev.onfit.framework.di.dataSourceModule
 import org.dev.onfit.framework.di.networkModule
 import org.dev.onfit.framework.di.repositoryModule
 import org.dev.onfit.framework.di.viewmodelModule
+import org.dev.onfit.ui.common.composables.OnFitTopBar
 import org.dev.onfit.ui.home.BottomNavigation
 import org.dev.onfit.ui.navigation.HomeDestination
 import org.dev.onfit.ui.navigation.OnFitNavigation
@@ -56,11 +57,16 @@ fun App(
 
 @Composable
 fun MainScreen(navController: NavHostController) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
     Scaffold(
+        topBar = {
+            if (navBackStackEntry.hasRoute(HomeDestination.Home)) {
+                OnFitTopBar()
+            }
+        },
         bottomBar = {
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 BottomNavigation(navController)
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
                 if (navBackStackEntry.hasRoute(HomeDestination.Home))
                 FloatingActionButton(
                     modifier = Modifier.size(70.dp).offset(y = (-30).dp),
