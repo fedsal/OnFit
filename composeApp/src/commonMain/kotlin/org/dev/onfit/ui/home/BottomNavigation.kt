@@ -1,10 +1,6 @@
 package org.dev.onfit.ui.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
@@ -39,32 +35,30 @@ fun BottomNavigation(
                 shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
                 shadowElevation = 20f
             }
-            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
-            .height(100.dp),
+                .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                .height(80.dp),
         ) {
-            Column {
-                Spacer(Modifier.size(20.dp))
-                NavigationBar(Modifier.offset(y = (-5).dp)) {
-                    menuItems.forEach { item ->
-                        NavigationBarItem(
-                            selected = navBackStackEntry.hasRoute(item.route),
-                            label = { Text(text = item.title) },
-                            onClick = { navHostController.navigate(item.route) },
-                            icon = {
-                                Icon(
-                                    imageVector = item.icon,
-                                    contentDescription = item.title
-                                )
-                            },
-                            colors = NavigationBarItemDefaults.colors(
-                                indicatorColor = Color.Transparent,
-                                selectedIconColor = MaterialTheme.colorScheme.primary,
-                                selectedTextColor = MaterialTheme.colorScheme.primary,
+            NavigationBar {
+                menuItems.forEach { item ->
+                    NavigationBarItem(
+                        selected = navBackStackEntry.hasRoute(item.route),
+                        label = { Text(text = item.title) },
+                        onClick = { navHostController.navigate(item.route) },
+                        icon = {
+                            Icon(
+                                imageVector = item.icon,
+                                contentDescription = item.title
                             )
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            indicatorColor = Color.Transparent,
+                            selectedIconColor = MaterialTheme.colorScheme.primary,
+                            selectedTextColor = MaterialTheme.colorScheme.primary,
                         )
-                    }
+                    )
                 }
             }
+
         }
     }
 }

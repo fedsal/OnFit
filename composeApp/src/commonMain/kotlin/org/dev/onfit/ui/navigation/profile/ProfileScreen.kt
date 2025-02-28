@@ -29,7 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import onfit.composeapp.generated.resources.Res
-import onfit.composeapp.generated.resources.logo
+import onfit.composeapp.generated.resources.logo_icon
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -52,7 +52,8 @@ fun ProfileCard() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(Res.drawable.logo),
+                painter = painterResource(Res.drawable.logo_icon),
+                modifier = Modifier.size(50.dp),
                 contentDescription = null
             )
             Spacer(Modifier.width(16.dp))
