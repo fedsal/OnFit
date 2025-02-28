@@ -16,8 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -33,9 +33,12 @@ fun BottomNavigation(
     val showBottomBar = navBackStackEntry.hasRoute(HomeDestination.Home)
     if (showBottomBar) {
         BottomAppBar(
-            modifier = Modifier
-                .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
-                .height(100.dp),
+            modifier = Modifier.graphicsLayer {
+                clip = true
+                shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
+                shadowElevation = 20f
+            }
+            .height(100.dp),
         ) {
             Column {
                 Spacer(Modifier.size(20.dp))
@@ -43,9 +46,7 @@ fun BottomNavigation(
                     menuItems.forEach { item ->
                         NavigationBarItem(
                             selected = navBackStackEntry.hasRoute(item.route),
-                            label = {
-                                Text(text = item.title)
-                            },
+                            label = { Text(text = item.title) },
                             onClick = { navHostController.navigate(item.route) },
                             icon = {
                                 Icon(
@@ -65,3 +66,4 @@ fun BottomNavigation(
         }
     }
 }
+
