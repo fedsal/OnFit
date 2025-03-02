@@ -61,7 +61,7 @@ fun SportCenterCard() {
             }
             Spacer(Modifier.size(16.dp))
             Column(
-                Modifier.weight(1f).padding(vertical = 8.dp).fillMaxSize(),
+                Modifier.weight(1f).padding(bottom = 8.dp).fillMaxSize(),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
             ) {
