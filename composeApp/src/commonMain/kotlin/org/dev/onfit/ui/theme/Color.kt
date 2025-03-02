@@ -219,6 +219,9 @@ val surfaceContainerHighDarkHighContrast = Color(0xFF3C3B3B)
 val surfaceContainerHighestDarkHighContrast = Color(0xFF474646)
 
 
+// Custom colors
+val whatsappGreen = Color(0xff02a302)
+
 
 
 
