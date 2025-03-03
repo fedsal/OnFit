@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -50,9 +50,9 @@ fun OnFitTopBar() {
                 )
             }
             Icon(
-                imageVector = Icons.Rounded.Settings,
+                imageVector = Icons.Rounded.AccountCircle,
                 contentDescription = "Settings Icon",
-                modifier = Modifier.size(24.dp).align(Alignment.CenterEnd),
+                modifier = Modifier.size(30.dp).align(Alignment.CenterEnd),
                 tint = Color.DarkGray
             )
         }
