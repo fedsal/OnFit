@@ -30,10 +30,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import org.dev.onfit.ui.common.composables.OnFitTopBar
 import org.dev.onfit.ui.theme.errorContainerLightMediumContrast
+import org.koin.compose.koinInject
 
 
 data class ConfigItem(
@@ -60,14 +63,17 @@ val items = listOf(
     )
 
 @Composable
-fun AccountScreen() {
+fun AccountScreen(
+    navController: NavHostController = koinInject()
+) {
     Scaffold(topBar = {
         OnFitTopBar {
             Box(modifier = Modifier.fillMaxSize().padding(10.dp)) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
                     contentDescription = "Back button",
-                    modifier = Modifier.align(Alignment.CenterStart)
+                    modifier = Modifier.align(Alignment.CenterStart).size(30.dp)
+                        .clickable { navController.navigateUp() }
                 )
                 Text(modifier = Modifier.align(Alignment.Center), text = "Configuracion")
             }
@@ -80,17 +86,20 @@ fun AccountScreen() {
         ) {
             Spacer(Modifier.height(16.dp))
             items.forEach {
-                Column {
+                Column(verticalArrangement = Arrangement.Center) {
                     Spacer(Modifier.height(16.dp))
-                    Row {
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = it.icon, contentDescription = ""
                         )
-                        Spacer(Modifier.width(8.dp))
-                        Text(it.title)
-                        Spacer(
-                            Modifier.weight(1f)
+                        Spacer(Modifier.width(16.dp))
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = it.title,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
                         )
+                        Spacer(Modifier.width(16.dp))
                         Icon(
                             modifier = Modifier.size(30.dp),
                             imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
