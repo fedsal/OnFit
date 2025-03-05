@@ -21,7 +21,7 @@ fun OnFitNavigation(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = HomeDestination.HomeGraph
+        startDestination = Splash
     ) {
         composable<Splash> { SplashScreen() }
         navigation<HomeDestination.HomeGraph>(startDestination = HomeDestination.Home) {
