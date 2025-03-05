@@ -66,7 +66,7 @@ fun MainScreen(navController: NavHostController) {
     Scaffold(
         modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
         topBar = {
-            if (navBackStackEntry.hasRoute(HomeDestination.Home)) {
+            if (navBackStackEntry.hasRoute(HomeDestination.HomeGraph)) {
                 OnFitTopBar {
                     HomeTopBarContent(onAccountTapped = { navController.navigate(Account) })
                 }

@@ -5,4 +5,5 @@ interface LocalAuthDataSource {
     suspend fun saveRefreshToken(token: String): Boolean
     suspend fun getAccessToken(): String?
     suspend fun saveAccessToken(token: String): Boolean
+    suspend fun logout(): Boolean
 }

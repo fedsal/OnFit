@@ -21,4 +21,6 @@ class AuthRepository(
     suspend fun getAccessToken() = localDataSource.getAccessToken()
 
     suspend fun getRefreshToken() = localDataSource.getRefreshToken()
+
+    suspend fun logout() = localDataSource.logout()
 }

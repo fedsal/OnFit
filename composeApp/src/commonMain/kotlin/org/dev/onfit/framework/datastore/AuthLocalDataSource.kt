@@ -50,6 +50,16 @@ class AuthLocalDataSource(
         false
     }
 
+    override suspend fun logout(): Boolean = try {
+        dataStore.edit {
+            it.clear()
+        }
+        true
+    } catch (e: Exception) {
+        e.printStackTrace()
+        false
+    }
+
     /**
      * Get the access token from the local data store
      */

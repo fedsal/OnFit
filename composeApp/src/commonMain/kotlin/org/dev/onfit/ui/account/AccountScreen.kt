@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -35,8 +36,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import org.dev.onfit.ui.common.composables.OnFitTopBar
+import org.dev.onfit.ui.navigation.AuthDestination
 import org.dev.onfit.ui.theme.errorContainerLightMediumContrast
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 
 data class ConfigItem(
@@ -64,17 +67,19 @@ val items = listOf(
 
 @Composable
 fun AccountScreen(
-    navController: NavHostController = koinInject()
+    navController: NavHostController = koinInject(), viewModel: AccountViewModel = koinViewModel()
 ) {
+    val sessionClosed = viewModel.sessionClosed.collectAsState()
+    if (sessionClosed.value) {
+        navController.navigate(AuthDestination.Login)
+    }
     Scaffold(topBar = {
         OnFitTopBar {
             Box(modifier = Modifier.fillMaxSize().padding(10.dp)) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
+                Icon(imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
                     contentDescription = "Back button",
                     modifier = Modifier.align(Alignment.CenterStart).size(30.dp)
-                        .clickable { navController.navigateUp() }
-                )
+                        .clickable { navController.navigateUp() })
                 Text(modifier = Modifier.align(Alignment.Center), text = "Configuracion")
             }
         }
@@ -112,15 +117,13 @@ fun AccountScreen(
             }
             Spacer(Modifier.weight(1f))
             Row(
-                Modifier.fillMaxWidth().height(50.dp).clickable { /* TODO: close session */ },
+                Modifier.fillMaxWidth().height(50.dp).clickable { viewModel.closeSession() },
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "Cerrar sesion",
-                    style = TextStyle(
-                        color = errorContainerLightMediumContrast,
-                        fontSize = 18.sp
+                    "Cerrar sesion", style = TextStyle(
+                        color = errorContainerLightMediumContrast, fontSize = 18.sp
                     )
                 )
             }
