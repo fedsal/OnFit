@@ -28,8 +28,10 @@ import org.dev.onfit.framework.di.dataSourceModule
 import org.dev.onfit.framework.di.networkModule
 import org.dev.onfit.framework.di.repositoryModule
 import org.dev.onfit.framework.di.viewmodelModule
+import org.dev.onfit.ui.common.composables.HomeTopBarContent
 import org.dev.onfit.ui.common.composables.OnFitTopBar
 import org.dev.onfit.ui.home.BottomNavigation
+import org.dev.onfit.ui.navigation.Account
 import org.dev.onfit.ui.navigation.HomeDestination
 import org.dev.onfit.ui.navigation.OnFitNavigation
 import org.dev.onfit.ui.navigation.hasRoute
@@ -64,27 +66,29 @@ fun MainScreen(navController: NavHostController) {
     Scaffold(
         modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
         topBar = {
-            if (navBackStackEntry.hasRoute(HomeDestination.HomeGraph)) {
-                OnFitTopBar()
+            if (navBackStackEntry.hasRoute(HomeDestination.Home)) {
+                OnFitTopBar {
+                    HomeTopBarContent(onAccountTapped = { navController.navigate(Account) })
+                }
             }
         },
         bottomBar = {
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 BottomNavigation(navController)
                 if (navBackStackEntry.hasRoute(HomeDestination.HomeGraph))
-                FloatingActionButton(
-                    modifier = Modifier.size(70.dp).offset(y = (-30).dp),
-                    onClick = {},
-                    shape = CircleShape,
-                    elevation = FloatingActionButtonDefaults.elevation(0.dp)
-                ) {
-                    Icon(
-                        modifier = Modifier.size(30.dp),
-                        imageVector = Icons.Rounded.QrCode,
-                        tint = Color.Black,
-                        contentDescription = ""
-                    )
-                }
+                    FloatingActionButton(
+                        modifier = Modifier.size(70.dp).offset(y = (-30).dp),
+                        onClick = {},
+                        shape = CircleShape,
+                        elevation = FloatingActionButtonDefaults.elevation(0.dp)
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(30.dp),
+                            imageVector = Icons.Rounded.QrCode,
+                            tint = Color.Black,
+                            contentDescription = ""
+                        )
+                    }
             }
         }
     ) { padding ->

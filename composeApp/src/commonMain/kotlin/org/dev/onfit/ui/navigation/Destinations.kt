@@ -17,6 +17,10 @@ sealed class AuthDestination {
 @Serializable
 data object Splash
 
+// Route for Account
+@Serializable
+data object Account
+
 // Route for home
 sealed class HomeDestination {
     @Serializable

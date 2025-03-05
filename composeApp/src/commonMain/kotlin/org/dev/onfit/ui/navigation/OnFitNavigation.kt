@@ -7,9 +7,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import org.dev.onfit.ui.login.LoginScreen
+import org.dev.onfit.ui.account.AccountScreen
 import org.dev.onfit.ui.home.HomeScreen
 import org.dev.onfit.ui.home.shop.ShopScreen
+import org.dev.onfit.ui.login.LoginScreen
 import org.dev.onfit.ui.splash.SplashScreen
 
 @Composable
@@ -23,6 +24,7 @@ fun OnFitNavigation(
             composable<HomeDestination.Home> { HomeScreen() }
             composable<HomeDestination.Shop> { ShopScreen() }
         }
+        composable<Account> { AccountScreen() }
         navigation<AuthDestination.Auth>(startDestination = AuthDestination.Login) {
             composable<AuthDestination.Login> { LoginScreen() }
             composable<AuthDestination.Register> { Text("Register") }
