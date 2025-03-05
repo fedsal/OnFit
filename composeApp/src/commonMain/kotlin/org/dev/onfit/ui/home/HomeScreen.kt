@@ -20,7 +20,14 @@ import org.dev.onfit.ui.home.composables.SportCenterCard
 fun HomeScreen() {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(Modifier.padding(20.dp)) {
-            ProfileSection()
+            ProfileSection(
+                name = "Federico Salgado",
+                subscriptionInfo = "Plan: Vidriera 12 meses",
+                expirationDate = "02/08/2025",
+                healthAffidavitExpirationDate = "01/08/2025"
+            ) {
+                // TODO: handle QR tapped
+            }
             Spacer(Modifier.size(16.dp))
             Text("Tu sede:", color = Color.DarkGray, fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
             Spacer(Modifier.size(8.dp))

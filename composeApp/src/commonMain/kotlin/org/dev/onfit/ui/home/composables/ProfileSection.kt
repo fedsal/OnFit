@@ -1,6 +1,7 @@
 package org.dev.onfit.ui.home.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -33,9 +34,20 @@ import org.dev.onfit.ui.theme.errorContainerLightMediumContrast
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun ProfileSection() {
+fun ProfileSection(
+    name: String,
+    subscriptionInfo: String,
+    expirationDate: String,
+    healthAffidavitExpirationDate: String,
+    onQrTapped: () -> Unit
+) {
     Column {
-        ProfileCard()
+        ProfileCard(
+            name = name,
+            subscriptionInfo = subscriptionInfo,
+            expirationDate = expirationDate,
+            onQrTapped = onQrTapped
+        )
         Spacer(Modifier.height(16.dp))
         Card(
             Modifier.fillMaxWidth(),
@@ -51,7 +63,7 @@ fun ProfileSection() {
                 Spacer(Modifier.width(16.dp))
                 Column(Modifier.fillMaxWidth().weight(1f)) {
                     Text("Declaracion jurada", style = TextStyle(color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp))
-                    Text("Vencimiento: 01/08/2025", style = TextStyle(color = Color.DarkGray, fontSize = 14.sp))
+                    Text("Vencimiento: $healthAffidavitExpirationDate", style = TextStyle(color = Color.DarkGray, fontSize = 14.sp))
 
                 }
             }
@@ -60,7 +72,12 @@ fun ProfileSection() {
 }
 
 @Composable
-fun ProfileCard() {
+fun ProfileCard(
+    name: String,
+    subscriptionInfo: String,
+    expirationDate: String,
+    onQrTapped: () -> Unit
+) {
     Card(
         Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -76,14 +93,15 @@ fun ProfileCard() {
             )
             Spacer(Modifier.width(16.dp))
             Column {
-                Text("Federico Salgado", color = Color.Black, fontSize = 18.sp, style = TextStyle(fontWeight = FontWeight.Bold))
+                Text(name, color = Color.Black, fontSize = 18.sp, style = TextStyle(fontWeight = FontWeight.Bold))
                 Spacer(Modifier.size(8.dp))
-                Text("Plan: Vidriera 12 meses")
-                Text("Vencimiento: 02/08/2025")
+                Text("Plan: $subscriptionInfo")
+                Text("Vencimiento: $expirationDate")
             }
             Spacer(Modifier.size(8.dp))
             Box(Modifier.weight(1f).fillMaxHeight(), contentAlignment = Alignment.TopEnd) {
                 Icon(
+                    modifier = Modifier.clickable(onClick = onQrTapped),
                     imageVector = Icons.Default.QrCode,
                     contentDescription = ""
                 )
