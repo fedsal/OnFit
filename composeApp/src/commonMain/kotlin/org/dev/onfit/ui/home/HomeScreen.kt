@@ -31,7 +31,13 @@ fun HomeScreen() {
             Spacer(Modifier.size(16.dp))
             Text("Tu sede:", color = Color.DarkGray, fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
             Spacer(Modifier.size(8.dp))
-            SportCenterCard()
+            SportCenterCard(
+                name = "OnFit Maschwitz",
+                address = "Calle rosales, entre Santiago del estero y Colectora este",
+                distance = "0.5 km",
+                onWhatsappTapped = { /*TODO*/ },
+                onDirectionsTapped = { /*TODO*/ }
+            )
         }
     }
 }

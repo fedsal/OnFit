@@ -2,6 +2,7 @@ package org.dev.onfit.ui.home.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,9 +18,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Whatsapp
+import androidx.compose.material.icons.outlined.ArrowCircleRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -40,7 +41,13 @@ import org.dev.onfit.ui.theme.whatsappGreen
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun SportCenterCard() {
+fun SportCenterCard(
+    name: String,
+    address: String,
+    distance: String,
+    onWhatsappTapped: () -> Unit,
+    onDirectionsTapped: () -> Unit
+) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -68,7 +75,7 @@ fun SportCenterCard() {
                 Row {
                     Column(modifier = Modifier.weight(1f).fillMaxWidth()) {
                         Text(
-                            text = "OnFit Maschwitz",
+                            text = name,
                             color = Color.Black,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
@@ -78,15 +85,15 @@ fun SportCenterCard() {
                     }
                     Spacer(Modifier.width(16.dp))
                     Icon(
+                        modifier = Modifier.size(24.dp).clickable(onClick = onWhatsappTapped),
                         imageVector = Icons.Default.Whatsapp,
-                        "",
+                        contentDescription = "Whatsapp contact",
                         tint = whatsappGreen,
-                        modifier = Modifier.size(24.dp)
                     )
                 }
                 Spacer(Modifier.size(8.dp))
                 Text(
-                    text = "Calle rosales, entre Santiago del estero y Colectora este",
+                    text = address,
                     style = TextStyle(fontSize = 14.sp, color = Color.DarkGray),
                     modifier = Modifier.weight(1f)
                 )
@@ -104,21 +111,27 @@ fun SportCenterCard() {
                         )
                         Spacer(Modifier.width(2.dp))
                         Text(
-                            "0.2 km",
+                            distance,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.Gray,
                             fontSize = 14.sp
                         )
                     }
-                    Row(modifier = Modifier.align(Alignment.CenterEnd)) {
+                    Row(
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                            .clickable(onClick = onDirectionsTapped),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
                             text = "Como llegar",
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp
                         )
+                        Spacer(Modifier.width(4.dp))
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            modifier = Modifier.size(22.dp),
+                            imageVector = Icons.Outlined.ArrowCircleRight,
                             contentDescription = ""
                         )
                     }
