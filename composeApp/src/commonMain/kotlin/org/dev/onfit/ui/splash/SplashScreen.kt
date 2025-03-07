@@ -16,6 +16,7 @@ import onfit.composeapp.generated.resources.Res
 import onfit.composeapp.generated.resources.logo
 import org.dev.onfit.ui.navigation.AuthDestination
 import org.dev.onfit.ui.navigation.HomeDestination
+import org.dev.onfit.ui.navigation.Splash
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
@@ -28,9 +29,19 @@ fun SplashScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     if (uiState.value.goToHome) {
-        navController.navigate(HomeDestination.HomeGraph)
+        navController.navigate(HomeDestination.HomeGraph) {
+            popUpTo(Splash) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
     } else if (uiState.value.goToLogin) {
-        navController.navigate(AuthDestination.Login)
+        navController.navigate(AuthDestination.Login) {
+            popUpTo(Splash) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
     }
 
     Surface {

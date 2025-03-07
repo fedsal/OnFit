@@ -42,6 +42,7 @@ import androidx.navigation.NavHostController
 import onfit.composeapp.generated.resources.Res
 import onfit.composeapp.generated.resources.logo
 import org.dev.onfit.ui.common.composables.CustomTextField
+import org.dev.onfit.ui.navigation.AuthDestination
 import org.dev.onfit.ui.navigation.HomeDestination
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
@@ -54,7 +55,12 @@ fun LoginScreen(
 ) {
     val uiState = viewModel.uiState.collectAsState()
     if (uiState.value.loggedIn) {
-        navController.navigate(HomeDestination.HomeGraph)
+        navController.navigate(HomeDestination.HomeGraph) {
+            popUpTo(AuthDestination.Login) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
         return
     }
     val focusRequester = remember { FocusRequester() }
