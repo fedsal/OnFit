@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import org.dev.onfit.ui.common.composables.OnFitTopBar
 import org.dev.onfit.ui.navigation.AuthDestination
+import org.dev.onfit.ui.navigation.HomeDestination
 import org.dev.onfit.ui.theme.errorContainerLightMediumContrast
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
@@ -71,7 +72,12 @@ fun AccountScreen(
 ) {
     val sessionClosed = viewModel.sessionClosed.collectAsState()
     if (sessionClosed.value) {
-        navController.navigate(AuthDestination.Login)
+        navController.navigate(AuthDestination.Login) {
+            popUpTo(HomeDestination.HomeGraph) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
     }
     Scaffold(topBar = {
         OnFitTopBar {
