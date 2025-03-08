@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.dev.onfit.ui.common.openSportCenterMaps
 import org.dev.onfit.ui.common.openWhatsapp
 import org.dev.onfit.ui.home.composables.ProfileCredentialDialog
 import org.dev.onfit.ui.home.composables.ProfileSection
@@ -58,7 +59,13 @@ fun HomeScreen() {
                             uriHandler
                         )
                     },
-                    onDirectionsTapped = { /*TODO*/ }
+                    onDirectionsTapped = {
+                        openSportCenterMaps(
+                            "-34.379764",
+                            "-58.750750",
+                            uriHandler
+                        )
+                    }
                 )
             }
             if (showCredential) {

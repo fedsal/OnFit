@@ -15,3 +15,17 @@ fun openWhatsapp(
     }.buildString()
     uriHandler.openUri(url)
 }
+
+const val GOOGLE_MAPS_URI = "https://www.google.com/maps/search/"
+
+fun openSportCenterMaps(
+    latitude: String,
+    longitude: String,
+    uriHandler: UriHandler
+) {
+    val url = URLBuilder(GOOGLE_MAPS_URI).apply {
+        parameters.append("api", "1")
+        parameters.append("query", "$latitude,$longitude")
+    }.buildString()
+    uriHandler.openUri(url)
+}
