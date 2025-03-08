@@ -15,15 +15,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.dev.onfit.ui.common.openWhatsapp
 import org.dev.onfit.ui.home.composables.ProfileCredentialDialog
 import org.dev.onfit.ui.home.composables.ProfileSection
 import org.dev.onfit.ui.home.composables.SportCenterCard
 
 @Composable
 fun HomeScreen() {
+    val uriHandler = LocalUriHandler.current
     Surface(modifier = Modifier.fillMaxSize()) {
         Box(Modifier.fillMaxSize()) {
             var showCredential by remember { mutableStateOf(false) }
@@ -49,7 +52,12 @@ fun HomeScreen() {
                     name = "OnFit Maschwitz",
                     address = "Calle rosales, entre Santiago del estero y Colectora este",
                     distance = "0.5 km",
-                    onWhatsappTapped = { /*TODO*/ },
+                    onWhatsappTapped = {
+                        openWhatsapp(
+                            phoneNumber = "5491123456789",
+                            uriHandler
+                        )
+                    },
                     onDirectionsTapped = { /*TODO*/ }
                 )
             }
