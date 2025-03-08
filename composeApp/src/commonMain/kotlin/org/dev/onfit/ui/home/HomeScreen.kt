@@ -55,7 +55,7 @@ fun HomeScreen() {
                     distance = "0.5 km",
                     onWhatsappTapped = {
                         openWhatsapp(
-                            phoneNumber = "5491123456789",
+                            phoneNumber = "541131903642",
                             uriHandler
                         )
                     },

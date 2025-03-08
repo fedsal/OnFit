@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,6 +30,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -36,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import org.dev.onfit.ui.common.composables.OnFitTopBar
+import org.dev.onfit.ui.common.openWhatsapp
 import org.dev.onfit.ui.navigation.AuthDestination
 import org.dev.onfit.ui.navigation.HomeDestination
 import org.dev.onfit.ui.theme.errorContainerLightMediumContrast
@@ -47,22 +51,28 @@ data class ConfigItem(
     val icon: ImageVector, val title: String, val action: () -> Unit = {}
 )
 
-val items = listOf(
+const val ONFIT_URL = "https://onfit.com.ar"
+const val ONFIT_IG = "https://www.instagram.com/onfitarg/"
+const val ONFIT_MAIL = "info@onfit.com.ar"
+
+fun getItems(uriHandler: UriHandler) = listOf(
     ConfigItem(
         icon = Icons.Outlined.Security, title = "Revisa nuestros terminos y condiciones"
     ),
-    ConfigItem(
-        icon = Icons.Outlined.Public, title = "Visitanos en nuestra pagina web"
-    ),
-    ConfigItem(
-        icon = Icons.Filled.Favorite, title = "Seguinos en Instagram"
-    ),
-    ConfigItem(
-        icon = Icons.Filled.Whatsapp, title = "Escribinos por whatsapp"
-    ),
-    ConfigItem(
-        icon = Icons.Filled.Email, title = "Envianos un mail"
-    ),
+    ConfigItem(icon = Icons.Outlined.Public, title = "Visitanos en nuestra pagina web", action = {
+        uriHandler.openUri(ONFIT_URL)
+    }),
+    ConfigItem(icon = Icons.Filled.Favorite, title = "Seguinos en Instagram", action = {
+        uriHandler.openUri(ONFIT_IG)
+    }),
+    ConfigItem(icon = Icons.Filled.Whatsapp, title = "Escribinos por whatsapp", action = {
+        openWhatsapp(
+            phoneNumber = "541131903642", uriHandler
+        )
+    }),
+    ConfigItem(icon = Icons.Filled.Email, title = "Envianos un mail", action = {
+        uriHandler.openUri("mailto:$ONFIT_MAIL")
+    }),
 
     )
 
@@ -79,13 +89,22 @@ fun AccountScreen(
             launchSingleTop = true
         }
     }
+    val uriHandler = LocalUriHandler.current
     Scaffold(topBar = {
         OnFitTopBar {
             Box(modifier = Modifier.fillMaxSize().padding(10.dp)) {
-                Icon(imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
-                    contentDescription = "Back button",
-                    modifier = Modifier.align(Alignment.CenterStart).size(30.dp)
-                        .clickable { navController.navigateUp() })
+                Box(
+                    modifier = Modifier.align(Alignment.CenterStart).width(60.dp).fillMaxHeight()
+                        .clickable(interactionSource = null,
+                            indication = null,
+                            onClick = { navController.navigateUp() })
+                ) {
+                    Icon(
+                        modifier = Modifier.size(30.dp).align(Alignment.CenterStart),
+                        imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
+                        contentDescription = "Back button"
+                    )
+                }
                 Text(modifier = Modifier.align(Alignment.Center), text = "Configuracion")
             }
         }
@@ -96,10 +115,15 @@ fun AccountScreen(
             )
         ) {
             Spacer(Modifier.height(16.dp))
-            items.forEach {
-                Column(verticalArrangement = Arrangement.Center) {
+            getItems(uriHandler).forEach {
+                Column(
+                    modifier = Modifier.clickable(onClick = it.action),
+                    verticalArrangement = Arrangement.Center
+                ) {
                     Spacer(Modifier.height(16.dp))
-                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             imageVector = it.icon, contentDescription = ""
                         )
