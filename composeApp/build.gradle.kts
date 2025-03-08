@@ -58,6 +58,7 @@ kotlin {
             implementation(libs.datastore.preferences)
             implementation(libs.navigation.compose)
             implementation(libs.webview)
+            implementation(libs.qr.kit)
             // Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.serialization)

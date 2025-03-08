@@ -11,12 +11,17 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.QrCode
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +35,7 @@ import org.dev.onfit.framework.di.repositoryModule
 import org.dev.onfit.framework.di.viewmodelModule
 import org.dev.onfit.ui.common.composables.HomeTopBarContent
 import org.dev.onfit.ui.common.composables.OnFitTopBar
+import org.dev.onfit.ui.common.composables.QRBottomSheet
 import org.dev.onfit.ui.home.BottomNavigation
 import org.dev.onfit.ui.navigation.Account
 import org.dev.onfit.ui.navigation.HomeDestination
@@ -60,9 +66,14 @@ fun App(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
     Scaffold(
         modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
         topBar = {
@@ -78,7 +89,9 @@ fun MainScreen(navController: NavHostController) {
                 if (navBackStackEntry.hasRoute(HomeDestination.HomeGraph))
                     FloatingActionButton(
                         modifier = Modifier.size(70.dp).offset(y = (-30).dp),
-                        onClick = {},
+                        onClick = {
+                            showBottomSheet = true
+                        },
                         shape = CircleShape,
                         elevation = FloatingActionButtonDefaults.elevation(0.dp)
                     ) {
@@ -92,6 +105,14 @@ fun MainScreen(navController: NavHostController) {
             }
         }
     ) { padding ->
+        if (showBottomSheet) {
+            QRBottomSheet(
+                sheetState = sheetState,
+                onDismissRequest = { showBottomSheet = false },
+                accessToken = "123",
+                expirationTime = 10
+            )
+        }
         OnFitNavigation(modifier = Modifier.padding(padding), navController = navController)
     }
 }
