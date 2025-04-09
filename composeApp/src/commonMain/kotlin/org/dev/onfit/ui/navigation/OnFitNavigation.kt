@@ -1,8 +1,14 @@
 package org.dev.onfit.ui.navigation
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,13 +31,45 @@ fun OnFitNavigation(
     ) {
         composable<Splash> { SplashScreen() }
         navigation<HomeDestination.HomeGraph>(startDestination = HomeDestination.Home) {
-            composable<HomeDestination.Home> { HomeScreen() }
-            composable<HomeDestination.Shop> { ShopScreen() }
+            composable<HomeDestination.Home>(
+                enterTransition = { EnterTransition.None }
+            ) { HomeScreen() }
+            composable<HomeDestination.Shop>(
+                enterTransition = { EnterTransition.None }
+            ) { ShopScreen() }
         }
-        composable<Account> { AccountScreen() }
-        navigation<AuthDestination.Auth>(startDestination = AuthDestination.Login) {
-            composable<AuthDestination.Login> { LoginScreen() }
-            composable<AuthDestination.Register> { Text("Register") }
+        animatedComposable<Account> { AccountScreen() }
+        animatedNavigation<AuthDestination.Auth>(startDestination = AuthDestination.Login) {
+            animatedComposable<AuthDestination.Login> { LoginScreen() }
+            animatedComposable<AuthDestination.Register> { Text("Register") }
         }
     }
+}
+
+/**
+ * Slide in/out animated navigation
+ */
+inline fun <reified T : Any> NavGraphBuilder.animatedNavigation(
+    startDestination: Any,
+    noinline builder: NavGraphBuilder.() -> Unit
+) {
+    navigation<T>(
+        startDestination = startDestination,
+        builder = builder,
+        enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+        exitTransition = { slideOutHorizontally(targetOffsetX = { it }) }
+    )
+}
+
+/**
+ * Slide in/out animated composable
+ */
+inline fun <reified T : Any> NavGraphBuilder.animatedComposable(
+    noinline content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit
+) {
+    composable<T>(
+        enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+        exitTransition = { slideOutHorizontally(targetOffsetX = { it }) },
+        content = content
+    )
 }
