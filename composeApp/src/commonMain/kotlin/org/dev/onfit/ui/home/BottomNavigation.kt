@@ -43,7 +43,18 @@ fun BottomNavigation(
                     NavigationBarItem(
                         selected = navBackStackEntry.hasRoute(item.route),
                         label = { Text(text = item.title) },
-                        onClick = { navHostController.navigate(item.route) },
+                        onClick = {
+                            navHostController.navigate(item.route) {
+                                navHostController.graph.startDestinationRoute?.let { startDestinationRoute ->
+                                    popUpTo(startDestinationRoute) {
+                                        saveState = true
+                                    }
+                                }
+
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
                         icon = {
                             Icon(
                                 imageVector = item.icon,

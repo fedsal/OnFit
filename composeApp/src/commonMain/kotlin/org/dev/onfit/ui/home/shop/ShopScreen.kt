@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -14,15 +15,15 @@ import com.multiplatform.webview.request.WebRequestInterceptResult
 import com.multiplatform.webview.web.LoadingState
 import com.multiplatform.webview.web.WebView
 import com.multiplatform.webview.web.WebViewNavigator
+import com.multiplatform.webview.web.rememberSaveableWebViewState
 import com.multiplatform.webview.web.rememberWebViewNavigator
-import com.multiplatform.webview.web.rememberWebViewState
 
 @Composable
 fun ShopScreen() {
     val urlHandler = LocalUriHandler.current
     Surface(modifier = Modifier.fillMaxSize()) {
         Box(contentAlignment = Alignment.Center) {
-            val state = rememberWebViewState("https://tienda.onfit.com.ar/")
+            val state = rememberSaveableWebViewState("https://tienda.onfit.com.ar/")
             val webViewNavigator = rememberWebViewNavigator(
                 requestInterceptor = object: RequestInterceptor {
                     override fun onInterceptUrlRequest(
@@ -37,8 +38,13 @@ fun ShopScreen() {
                     }
                 }
             )
-            val loadingState = state.loadingState
-            if (loadingState is LoadingState.Loading) {
+            LaunchedEffect(webViewNavigator) {
+                val bundle = state.viewState
+                if (bundle == null) {
+                    webViewNavigator.loadUrl("https://tienda.onfit.com.ar/")
+                }
+            }
+            if (state.loadingState is LoadingState.Loading) {
                 CircularProgressIndicator()
             }
             WebView(
