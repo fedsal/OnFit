@@ -1,3 +1,6 @@
+<img width="1400" height="1000" alt="Mockup 17" src="https://github.com/user-attachments/assets/6ca3053e-4f98-4f20-bf1c-54ebb4f62169" />
+
+
 ## Android prints
 <image width=200 src="https://github.com/user-attachments/assets/bbbb2c7c-0111-410c-a353-f311f5100036"/>
 <image width=200 src="https://github.com/user-attachments/assets/180e9b8f-b83b-4372-966a-9f0f9d133f5c"/>
